@@ -77,7 +77,7 @@ export function showForecast(forecastList) {
  * Recebe um objeto com as informações de uma cidade e retorna um elemento HTML
  */
 export function createCityElement(cityInfo) { // Listar cidades retornadas pela API
-  const { name, country, temp, condition, icon, url } = cityInfo; // icon /* , url */
+  const { name, country, temp, condition, icon /* , url */ } = cityInfo; // icon /* , url */
 
   const cityElement = createElement('li', 'city');
 
