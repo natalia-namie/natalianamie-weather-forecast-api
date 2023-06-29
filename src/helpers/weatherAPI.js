@@ -21,9 +21,12 @@ export const getWeatherByCity = async (cityURL) => {
     const data = await result.json();
 
     return {
+      name: data.location.name,
+      country: data.location.country,
       temp: data.current.temp_c,
       condition: data.current.condition.text,
       icon: data.current.condition.icon,
+      url: `${cityURL}`,
     };
   } catch (error) {
     window.alert('Erro ao obter dados meteorológicos:');
