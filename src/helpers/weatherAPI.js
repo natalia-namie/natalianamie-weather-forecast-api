@@ -26,7 +26,7 @@ export const getWeatherByCity = async (cityURL) => {
       temp: data.current.temp_c,
       condition: data.current.condition.text,
       icon: data.current.condition.icon,
-      url: `${cityURL}`,
+      url: cityURL,
     };
   } catch (error) {
     window.alert('Erro ao obter dados meteorológicos:');

@@ -1,5 +1,7 @@
 import { searchCities, getWeatherByCity } from './weatherAPI';
 
+const TOKEN = import.meta.env.VITE_TOKEN;
+
 /**
  * Cria um elemento HTML com as informações passadas
  */
@@ -77,7 +79,7 @@ export function showForecast(forecastList) {
  * Recebe um objeto com as informações de uma cidade e retorna um elemento HTML
  */
 export function createCityElement(cityInfo) { // Listar cidades retornadas pela API
-  const { name, country, temp, condition, icon /* , url */ } = cityInfo; // icon /* , url */
+  const { name, country, temp, condition, icon, url } = cityInfo; // icon /* , url */
 
   const cityElement = createElement('li', 'city');
 
@@ -98,11 +100,31 @@ export function createCityElement(cityInfo) { // Listar cidades retornadas pela 
   iconElement.src = icon.replace('64x64', '128x128');
 
   const infoContainer = createElement('div', 'city-info-container');
+
+  const btnCheckWeather = createElement('button', 'city-forecast-button', 'Ver previsão'); // Criar botão
+
   infoContainer.appendChild(tempContainer);
   infoContainer.appendChild(iconElement);
 
   cityElement.appendChild(headingElement);
   cityElement.appendChild(infoContainer);
+
+  cityElement.appendChild(btnCheckWeather); // Adicionar botão dentro de cityElement
+
+  btnCheckWeather.addEventListener('click', async () => {
+    const result = await fetch(`http://api.weatherapi.com/v1/forecast.json?lang=pt&key=${TOKEN}&q=${url}&days=7`);
+    const data = await result.json();
+    const forecastData = data.forecast.forecastday.map((info) => { // Ao clicar no btn retorna essas informações
+      return {
+        date: info.date,
+        maxTemp: info.day.maxtemp_c,
+        minTemp: info.day.mintemp_c,
+        condition: info.day.condition.text,
+        icon: info.day.condition.icon,
+      };
+    });
+    showForecast(forecastData);
+  });
 
   return cityElement;
 }
