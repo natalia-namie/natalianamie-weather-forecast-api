@@ -79,7 +79,7 @@ export function showForecast(forecastList) {
  * Recebe um objeto com as informações de uma cidade e retorna um elemento HTML
  */
 export function createCityElement(cityInfo) { // Listar cidades retornadas pela API
-  const { name, country, temp, condition, icon, url } = cityInfo; // icon /* , url */
+  const { name, country, temp, condition, icon, url } = cityInfo;
 
   const cityElement = createElement('li', 'city');
 
@@ -136,12 +136,12 @@ export const handleSearch = async (event) => {
   event.preventDefault();
   clearChildrenById('cities');
 
+  const allCities = document.getElementById('cities'); // obter a ul #cities para adicionar as cidades.
   const searchInput = document.getElementById('search-input'); // onde o usuário insere o nome da cidade para pesquisar.
   const searchValue = searchInput.value; // obtém o valor do texto digitado pelo usuário.
 
-  const allCities = document.querySelector('#cities'); // obter a ul #cities para adicionar as cidades.
-
   const cities = await searchCities(searchValue); // passa o valor da pesquisa e retorna uma promessa.
+
   const weatherData = await Promise.all(
     cities
       .map((city) => getWeatherByCity(city.url)), // itera sobre a lista de cidades e chama a função.

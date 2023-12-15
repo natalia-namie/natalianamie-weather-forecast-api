@@ -9,9 +9,8 @@ export const searchCities = async (term) => {
       return [];
     }
     return data;
-  } catch (e) {
-    window.alert('Nenhuma cidade encontrada');
-    return [];
+  } catch (error) {
+    return error;
   }
 };
 

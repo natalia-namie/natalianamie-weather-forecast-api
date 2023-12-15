@@ -1,5 +1,4 @@
 import { handleSearch } from './helpers/pageFunctions';
-import './style.css';
 
 document.getElementById('search-form')
   .addEventListener('submit', handleSearch);
